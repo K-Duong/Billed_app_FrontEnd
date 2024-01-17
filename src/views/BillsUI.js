@@ -23,6 +23,7 @@ const row = (bill) => {
 const rows = (data) => {
   return data && data.length
     ? data
+        // .filter((bill) => bill.status)
         .sort((d1, d2) => (d1.date < d2.date ? 1 : -1))
         .map((bill) => row(bill))
         .join("")
