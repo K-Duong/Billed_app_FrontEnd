@@ -5,6 +5,11 @@ import { ROUTES_PATH } from '../constants/routes.js'
 import USERS_TEST from '../constants/usersTest.js'
 import Logout from "./Logout.js"
 
+
+const pendingTicketsContainer = document.querySelector('#arrow-icon1');
+const validTicketsContainer = document.querySelector('#arrow-icon2');
+const refusedTicketsContainer = document.querySelector('#arrow-icon3');
+
 export const filteredBills = (data, status) => {
   return (data && data.length) ?
     data.filter(bill => {
@@ -86,16 +91,15 @@ export default class {
   }
 
   handleEditTicket(e, bill, bills) {
-    if (this.counter === undefined || this.id !== bill.id) this.counter = 0
-    if (this.id === undefined || this.id !== bill.id) this.id = bill.id
-    if (this.counter % 2 === 0) {
+    console.log(arguments);
+    const target = e.target.closest(".bill-card");
+    if (!target.dataset.openticket || target.dataset.openticket === "false" ) {
       bills.forEach(b => {
         $(`#open-bill${b.id}`).css({ background: '#0D5AE5' })
       })
       $(`#open-bill${bill.id}`).css({ background: '#2A2B35' })
       $('.dashboard-right-container div').html(DashboardFormUI(bill))
       $('.vertical-navbar').css({ height: '150vh' })
-      this.counter ++
     } else {
       $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' })
 
@@ -103,8 +107,27 @@ export default class {
         <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
       `)
       $('.vertical-navbar').css({ height: '120vh' })
-      this.counter ++
+
     }
+    // if (this.counter === undefined || this.id !== bill.id) this.counter = 0
+    // if (this.id === undefined || this.id !== bill.id) this.id = bill.id
+    // if (this.counter % 2 === 0) {
+    //   bills.forEach(b => {
+    //     $(`#open-bill${b.id}`).css({ background: '#0D5AE5' })
+    //   })
+    //   $(`#open-bill${bill.id}`).css({ background: '#2A2B35' })
+    //   $('.dashboard-right-container div').html(DashboardFormUI(bill))
+    //   $('.vertical-navbar').css({ height: '150vh' })
+    //   this.counter ++
+    // } else {
+    //   $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' })
+
+    //   $('.dashboard-right-container div').html(`
+    //     <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
+    //   `)
+    //   $('.vertical-navbar').css({ height: '120vh' })
+    //   this.counter ++
+    // }
     $('#icon-eye-d').click(this.handleClickIconEye)
     $('#btn-accept-bill').click((e) => this.handleAcceptSubmit(e, bill))
     $('#btn-refuse-bill').click((e) => this.handleRefuseSubmit(e, bill))
@@ -131,28 +154,46 @@ export default class {
   }
 
   handleShowTickets(e, bills, index) {
-    if (this.counter === undefined || this.index !== index) this.counter = 0
-    if (this.index === undefined || this.index !== index) this.index = index
-    if (this.counter % 2 === 0) {
-      $(`#arrow-icon${this.index}`).css({ transform: 'rotate(0deg)'})
-      $(`#status-bills-container${this.index}`)
-        .html(cards(filteredBills(bills, getStatus(this.index))))
-      this.counter ++
+    // if (this.counter === undefined || this.index !== index) this.counter = 0
+    // if (this.index === undefined || this.index !== index) this.index = index
+    // if (this.counter % 2 === 0) {
+    //   $(`#arrow-icon${this.index}`).css({ transform: 'rotate(0deg)'})
+    //   $(`#status-bills-container${this.index}`)
+    //     .html(cards(filteredBills(bills, getStatus(this.index))))
+    //   this.counter ++
+    // } else {
+    //   $(`#arrow-icon${this.index}`).css({ transform: 'rotate(90deg)'})
+    //   $(`#status-bills-container${this.index}`)
+    //     .html("")
+    //   this.counter ++
+    // }
+    
+    const target = e.target.closest("span");
+    // console.log(target.dataset.open);
+    if (!target.dataset.open || target.dataset.open === 'false' ) {
+      $(`#arrow-icon${index}`).css({ transform: 'rotate(0deg)'});
+      $(`#status-bills-container${index}`)
+        .html(cards(filteredBills(bills, getStatus(index))));
+        target.dataset.open = true;
     } else {
-      $(`#arrow-icon${this.index}`).css({ transform: 'rotate(90deg)'})
-      $(`#status-bills-container${this.index}`)
-        .html("")
-      this.counter ++
-    }
+      target.dataset.open = false;
+      $(`#arrow-icon${index}`).css({ transform: 'rotate(90deg)'});
+      $(`#status-bills-container${index}`)
+        .html("");
+    };
 
-    bills.forEach(bill => {
+    console.log(filteredBills(bills, getStatus(index)));
+    const listBills = filteredBills(bills, getStatus(index));
+
+    listBills.forEach(bill => {
+      
       $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
     })
 
-    return bills
+    return listBills
 
   }
-
+  
   getBillsAllUsers = () => {
     if (this.store) {
       return this.store
