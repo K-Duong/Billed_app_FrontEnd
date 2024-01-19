@@ -91,22 +91,29 @@ export default class {
   }
 
   handleEditTicket(e, bill, bills) {
-    console.log(arguments);
     const target = e.target.closest(".bill-card");
-    if (!target.dataset.openticket || target.dataset.openticket === "false" ) {
+    // console.log(target);
+
+    if (!target.dataset.openBill || target.dataset.openBill === "false" ) {
       bills.forEach(b => {
-        $(`#open-bill${b.id}`).css({ background: '#0D5AE5' })
+        $(`#open-bill${b.id}`).css({ background: '#0D5AE5' });
+        $(`#open-bill${b.id}`).attr("data-open-bill", "false");
+      
       })
       $(`#open-bill${bill.id}`).css({ background: '#2A2B35' })
       $('.dashboard-right-container div').html(DashboardFormUI(bill))
-      $('.vertical-navbar').css({ height: '150vh' })
+      $('.vertical-navbar').css({ height: '150vh' });
+      target.dataset.openBill = true;
+
     } else {
+      console.log(target.dataset.openticket);
       $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' })
 
       $('.dashboard-right-container div').html(`
         <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
       `)
       $('.vertical-navbar').css({ height: '120vh' })
+      target.dataset.openBill = false;
 
     }
     // if (this.counter === undefined || this.id !== bill.id) this.counter = 0
