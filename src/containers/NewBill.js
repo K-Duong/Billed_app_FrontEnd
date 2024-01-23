@@ -21,10 +21,10 @@ export default class NewBill {
     e.preventDefault();
     const input = this.document.querySelector(`input[data-testid="file"]`);
     const file = input.files[0];
-      console.log("val:", e.target.value);
+      // console.log("val:", e.target.value);
     const filePath = e.target.value.split(/\\/g);
     const fileName = filePath[filePath.length - 1];
-    console.log("path, name", filePath, fileName);
+    // console.log("path, name", filePath, fileName);
 
     const regexImg = /^.+(\.jpeg|\.jpg|\.png)$/;
     console.log('regex', regexImg.test(fileName));
