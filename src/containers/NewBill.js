@@ -19,18 +19,18 @@ export default class NewBill {
   }
   handleChangeFile = (e) => {
     e.preventDefault();
+    console.log(e.target.value);
     const input = this.document.querySelector(`input[data-testid="file"]`);
     const file = input.files[0];
-      // console.log("val:", e.target.value);
+    console.log(file);
     const filePath = e.target.value.split(/\\/g);
     const fileName = filePath[filePath.length - 1];
-    // console.log("path, name", filePath, fileName);
 
     const regexImg = /^.+(\.jpeg|\.jpg|\.png)$/;
-    console.log('regex', regexImg.test(fileName));
+    // console.log('regex', regexImg.test(fileName));
     
     if (regexImg.test(fileName)) {
-      console.log('valid file name');
+      // console.log('valid file name');
       const formData = new FormData();
       const email = JSON.parse(localStorage.getItem("user")).email;
       formData.append("file", file);
@@ -53,8 +53,7 @@ export default class NewBill {
         })
         .catch((error) => console.error(error));
     }else{
-      
-      console.log("not valid file name");
+      // console.log("not valid file name");
       input.value = "";
       return false;
     };

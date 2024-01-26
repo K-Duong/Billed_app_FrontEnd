@@ -1,6 +1,7 @@
 import { ROUTES_PATH } from "../constants/routes.js";
 import { formatDate, formatStatus } from "../app/format.js";
 import Logout from "./Logout.js";
+import { bills } from "../fixtures/bills.js";
 
 export default class {
   constructor({ document, onNavigate, store, localStorage }) {
@@ -13,13 +14,15 @@ export default class {
     if (buttonNewBill)
       buttonNewBill.addEventListener("click", this.handleClickNewBill);
 
-    const iconEye = document.querySelectorAll(`div[c]`);
+    const iconEye = document.querySelectorAll(`div[data-testid="icon-eye"]`);
     if (iconEye)
       iconEye.forEach((icon) => {
+        console.log(document.querySelector("#modaleFile").getAttribute("ariaHidden"));
         icon.addEventListener("click", () => this.handleClickIconEye(icon));
       });
 
     new Logout({ document, localStorage, onNavigate });
+    
   }
 
   handleClickNewBill = () => {
@@ -28,7 +31,7 @@ export default class {
 
   handleClickIconEye = (icon) => {
     const billUrl = icon.getAttribute("data-bill-url");
-    // console.log("billUrl on click", billUrl);
+    console.log("billUrl on click", billUrl);
     const imgWidth = Math.floor($("#modaleFile").width() * 0.5);
     $("#modaleFile")
       .find(".modal-body")
@@ -36,38 +39,27 @@ export default class {
         `<div style='text-align: center;' class="bill-proof-container"><img width=${imgWidth} src=${billUrl} alt="Bill" /></div>`
       );
     $("#modaleFile").modal("show");
+    console.log(document.querySelector("#modaleFile").getAttribute("ariaHidden"));
   };
 
   getBills = () => {
-
     if (this.store) {
       return this.store
-        .bills()
-        .list()
-        .then((snapshot) => {
-          const bills = snapshot.map((doc) => {
-            try {
-              console.log("bill doc:", doc);
-              return {
-                ...doc,
-                // date: formatDate(doc.date),
-                date: doc.date,
-                status: formatStatus(doc.status),
-              };
-            } catch (e) {
-              // if for some reason, corrupted data was introduced, we manage here failing formatDate function
-              // log the error and return unformatted date in that case
-              console.log(e, "for", doc);
-              return {
-                ...doc,
-                date: doc.date,
-                status: formatStatus(doc.status),
-              };
-            }
-          });
-          console.log("length", bills.length);
-          return bills;
-        });
+      .bills()
+      .list()
+      .then(snapshot => {
+        const bills = snapshot
+        .map(doc => ({
+          id: doc.id,
+          ...doc,
+          date: doc.date,
+          status: formatStatus(doc.status),
+        }))
+        return bills
+      })
+      .catch(error => {
+        throw error;
+      })
     }
   };
 }

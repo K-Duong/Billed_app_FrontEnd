@@ -1,7 +1,6 @@
 import VerticalLayout from './VerticalLayout.js'
 
 export default () => {
-// FIXME:lign 58 à voir si bon endroit pour l'attribut: "accept"
   return (`
     <div class='layout'>
       ${VerticalLayout(120)}

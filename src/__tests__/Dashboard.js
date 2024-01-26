@@ -13,7 +13,7 @@ import mockStore from "../__mocks__/store"
 import { bills } from "../fixtures/bills"
 import router from "../app/Router"
 
-jest.mock("../app/store", () => mockStore)
+jest.mock("../app/Store", () => mockStore)
 
 describe('Given I am connected as an Admin', () => {
   describe('When I am on Dashboard page, there are bills, and there is one pending', () => {
@@ -233,9 +233,12 @@ describe('Given I am connected as Admin and I am on Dashboard page and I clicked
       eye.addEventListener('click', handleClickIconEye)
       userEvent.click(eye)
       expect(handleClickIconEye).toHaveBeenCalled()
+      // expect(handleClickIconEye).toHaveBeenCalledTimes(1)
 
       const modale = screen.getByTestId('modaleFileAdmin')
-      expect(modale).toBeTruthy()
+      expect(modale).toBeTruthy();
+      // expect(modale.classList.contains("show")).toBe(true);
+
     })
   })
 })
@@ -275,7 +278,6 @@ describe("Given I am a user connected as Admin", () => {
       router()
     })
     test("fetches bills from an API and fails with 404 message error", async () => {
-
       mockStore.bills.mockImplementationOnce(() => {
         return {
           list : () =>  {
