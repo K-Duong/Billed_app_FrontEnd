@@ -92,45 +92,33 @@ describe("Given I am connected as an employee", () => {
         Object.defineProperty(window, "localStorage", {
           value: localStorageMock,
         });
-
         window.localStorage.setItem(
           "user",
           JSON.stringify({
             type: "Employee",
           })
         );
-
         const root = document.createElement("div");
         root.setAttribute("id", "root");
         document.body.append(root);
         router();
-
         window.onNavigate(ROUTES_PATH.Bills);
         document.body.innerHTML = BillsUI({ data: bills });
         const bill = new Bills({ document, onNavigate, store: null, localStorage });
         const modale = document.querySelector("#modaleFile");
-        // expect(modale.getAttribute("ariaHidden")).toBe("true");
-
-        
         await waitFor(() => screen.getAllByTestId("icon-eye"));
 
         const spyClickIconEye = jest.spyOn(bill, "handleClickIconEye");
         const iconEye = screen.getAllByTestId("icon-eye")[0];
         $.fn.modal = jest.fn();
         userEvent.click(iconEye);
-        // await spyClickIconEye(iconEye);
-        // await waitFor(() => screen.getByAltText("Bill"));
-        // expect(spyClickIconEye(iconEye)).toBeCalledTimes(1);
-
 
         expect(spyClickIconEye).toBeCalledTimes(1);
-        // await waitFor(() => modale.classList.contains("show"));
-        // await waitFor(() => expect(modale).toHaveClass("show"));
         // expect(modale.getAttribute("ariaHidden")).toBeNull();
         // expect(modale.classList.contains("show")).toBe(true);
         // expect(modale).toHaveClass("show");
         // TODO: pas d'utilité ? Toujours existant --> check avec class ou testId
-        // expect(imgModal).toBeTruthy();
+        expect(modale).toBeTruthy();
       });
 
       test("the modal opened should be linked to the bill url", async () => {
