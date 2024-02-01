@@ -114,11 +114,7 @@ describe("Given I am connected as an employee", () => {
         userEvent.click(iconEye);
 
         expect(spyClickIconEye).toBeCalledTimes(1);
-        // expect(modale.getAttribute("ariaHidden")).toBeNull();
-        // expect(modale.classList.contains("show")).toBe(true);
-        // expect(modale).toHaveClass("show");
-        // TODO: pas d'utilité ? Toujours existant --> check avec class ou testId
-        expect(modale).toBeTruthy();
+        expect($.fn.modal).toBeCalledWith("show");
       });
 
       test("the modal opened should be linked to the bill url", async () => {

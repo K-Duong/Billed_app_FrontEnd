@@ -17,7 +17,6 @@ export default class {
     const iconEye = document.querySelectorAll(`div[data-testid="icon-eye"]`);
     if (iconEye)
       iconEye.forEach((icon) => {
-        console.log(document.querySelector("#modaleFile").getAttribute("ariaHidden"));
         icon.addEventListener("click", () => this.handleClickIconEye(icon));
       });
 
@@ -31,7 +30,7 @@ export default class {
 
   handleClickIconEye = (icon) => {
     const billUrl = icon.getAttribute("data-bill-url");
-    console.log("billUrl on click", billUrl);
+    // console.log("billUrl on click", billUrl);
     const imgWidth = Math.floor($("#modaleFile").width() * 0.5);
     $("#modaleFile")
       .find(".modal-body")
@@ -39,7 +38,7 @@ export default class {
         `<div style='text-align: center;' class="bill-proof-container"><img width=${imgWidth} src=${billUrl} alt="Bill" /></div>`
       );
     $("#modaleFile").modal("show");
-    console.log(document.querySelector("#modaleFile").getAttribute("ariaHidden"));
+    // console.log(document.querySelector("#modaleFile").getAttribute("ariaHidden"));
   };
 
   getBills = () => {
