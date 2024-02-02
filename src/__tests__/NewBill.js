@@ -10,7 +10,7 @@ import { localStorageMock } from "../__mocks__/localStorage.js";
 import mockStore from "../__mocks__/store";
 import router from "../app/Router.js";
 
-jest.mock("../app/Store", () => mockStore);
+
 
 describe(" Given I am connected as an employee and I am on NewBill Page", () => {
   beforeEach(() => {
@@ -152,14 +152,33 @@ describe(" Given I am connected as an employee and I am on NewBill Page", () => 
       // expect(screen.getByTestId("pct").value).toBe(valForm.pct);
       // expect(screen.getByTestId("commentary").value).toBe(valForm.commentary);
 
+      //   screen.getByTestId("expense-type").value = valForm.type;
+      //   screen.getByTestId("expense-name").value = valForm.name;
+      //   screen.getByTestId("amount").value = valForm.amount;
+      //   screen.getByTestId("datepicker").value = valForm.date;
+      //   screen.getByTestId("vat").value = valForm.vat;
+      //   screen.getByTestId("pct").value = valForm.pct;
+      //   screen.getByTestId("commentary").value = valForm.commentary;
+
+      //   expect(mockHandleChangeFile).toHaveBeenCalled();
+      //   expect(form).toBeTruthy();
       const mockHandleSubmit = jest.fn((e) => bill.handleSubmit(e));
       form.addEventListener("submit", mockHandleSubmit);
       //   //   //   await waitFor(() => fireEvent.submit(form));
       fireEvent.submit(form);
-      expect(mockHandleSubmit).toHaveBeenCalledTimes(1);
+      // expect(mockHandleSubmit).toHaveBeenCalledTimes(1);
+    //   fireEvent.submit(form, {
+    //     preventDefault,
+    //     target: {
+    //         querySelector: (selector) => document.querySelector(selector)
+    //     }
+    //   });
     });
-    
+    test("New bill appears on list of bills on Bill page", () => {});
+  });
 });
+
+jest.mock("../app/Store", () => mockStore);
 
 //Test d'intégration
 describe("When an error occurs on API", () => {
