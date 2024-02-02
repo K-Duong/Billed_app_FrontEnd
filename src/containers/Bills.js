@@ -1,7 +1,6 @@
 import { ROUTES_PATH } from "../constants/routes.js";
-import { formatDate, formatStatus } from "../app/format.js";
+import { formatStatus } from "../app/format.js";
 import Logout from "./Logout.js";
-import { bills } from "../fixtures/bills.js";
 
 export default class {
   constructor({ document, onNavigate, store, localStorage }) {
@@ -21,7 +20,6 @@ export default class {
       });
 
     new Logout({ document, localStorage, onNavigate });
-    
   }
 
   handleClickNewBill = () => {
@@ -30,7 +28,6 @@ export default class {
 
   handleClickIconEye = (icon) => {
     const billUrl = icon.getAttribute("data-bill-url");
-    // console.log("billUrl on click", billUrl);
     const imgWidth = Math.floor($("#modaleFile").width() * 0.5);
     $("#modaleFile")
       .find(".modal-body")
@@ -38,27 +35,27 @@ export default class {
         `<div style='text-align: center;' class="bill-proof-container"><img width=${imgWidth} src=${billUrl} alt="Bill" /></div>`
       );
     $("#modaleFile").modal("show");
-    // console.log(document.querySelector("#modaleFile").getAttribute("ariaHidden"));
   };
 
   getBills = () => {
     if (this.store) {
       return this.store
-      .bills()
-      .list()
-      .then(snapshot => {
-        const bills = snapshot
-        .map(doc => ({
-          id: doc.id,
-          ...doc,
-          date: doc.date,
-          status: formatStatus(doc.status),
-        }))
-        return bills
-      })
-      .catch(error => {
-        throw error;
-      })
+        .bills()
+        .list()
+        .then((snapshot) => {
+          const bills = snapshot
+            .filter((doc) => doc.amount)
+            .map((doc) => ({
+              id: doc.id,
+              ...doc,
+              date: doc.date,
+              status: formatStatus(doc.status),
+            }));
+          return bills;
+        })
+        .catch((error) => {
+          throw error;
+        });
     }
   };
 }

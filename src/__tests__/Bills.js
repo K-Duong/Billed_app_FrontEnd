@@ -105,7 +105,6 @@ describe("Given I am connected as an employee", () => {
         window.onNavigate(ROUTES_PATH.Bills);
         document.body.innerHTML = BillsUI({ data: bills });
         const bill = new Bills({ document, onNavigate, store: null, localStorage });
-        const modale = document.querySelector("#modaleFile");
         await waitFor(() => screen.getAllByTestId("icon-eye"));
 
         const spyClickIconEye = jest.spyOn(bill, "handleClickIconEye");
@@ -117,7 +116,7 @@ describe("Given I am connected as an employee", () => {
         expect($.fn.modal).toBeCalledWith("show");
       });
 
-      test("the modal opened should be linked to the bill url", async () => {
+      test("the modal should be linked to the bill url", async () => {
         const iconEye = screen.getAllByTestId("icon-eye")[0];
         await waitFor(() => screen.getByAltText("Bill"));
         const img = screen.getByAltText("Bill");
@@ -128,6 +127,8 @@ describe("Given I am connected as an employee", () => {
     });
   });
 });
+
+// Test d'intégration GET
 
 describe("Given I am a user connected as Employee", () => {
   describe("When I navigate to Bills page", () => {
