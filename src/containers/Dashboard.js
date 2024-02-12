@@ -116,7 +116,7 @@ export default class {
       status: 'accepted',
       commentAdmin: $('#commentary2').val()
     }
-    this.updateBill(newBill)
+    this.updateBill(newBill);
     this.onNavigate(ROUTES_PATH['Dashboard'])
   }
 
@@ -126,7 +126,7 @@ export default class {
       status: 'refused',
       commentAdmin: $('#commentary2').val()
     }
-    this.updateBill(newBill)
+    this.updateBill(newBill);
     this.onNavigate(ROUTES_PATH['Dashboard'])
   }
 
@@ -166,7 +166,7 @@ export default class {
           ...doc,
           date: doc.date,
           status: doc.status
-        }))
+        }));
         return bills
       })
       .catch(error => {
@@ -182,7 +182,9 @@ export default class {
     return this.store
       .bills()
       .update({data: JSON.stringify(bill), selector: bill.id})
-      .then(bill => bill)
+      .then(bill =>{ 
+        this.onNavigate(ROUTES_PATH['Dashboard']);
+        return bill})
       .catch(console.log)
     }
   }

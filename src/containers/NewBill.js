@@ -80,7 +80,6 @@ export default class NewBill {
 
   // not need to cover this function by tests
   updateBill = (bill) => {
-    console.log("updated store", this.store);
     if (this.store) {
       this.store
         .bills()

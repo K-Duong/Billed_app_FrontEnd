@@ -37,7 +37,6 @@ describe("Given I am connected as an employee", () => {
     });
     test("Then bills should be ordered from earliest to latest", () => {
       document.body.innerHTML = BillsUI({ data: bills });
-      // const dates = screen.getAllByText(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/i).map(a => a.innerHTML)
       const dates = screen
         .getAllByTestId("formated-date")
         .map((a) => a.innerHTML);
@@ -72,7 +71,6 @@ describe("Given I am connected as an employee", () => {
         window.onNavigate(ROUTES_PATH.Bills);
         document.body.innerHTML = BillsUI({ data: bills });
         const btnNewBill = screen.getByTestId("btn-new-bill");
-        // expect(btnNewBill).toBeTruthy();
         const bill = new Bills({ document, onNavigate, store: null, localStorage });
 
         const handleClickNewBill = jest.fn(bill.handleClickNewBill);
@@ -81,7 +79,6 @@ describe("Given I am connected as an employee", () => {
         expect(handleClickNewBill).toBeCalled();
       });
 
-      // TODO: pas d'utilité ?
       test("it should render new bill page", () => {
         expect(screen.getAllByText("Envoyer une note de frais")).toBeTruthy();
       });

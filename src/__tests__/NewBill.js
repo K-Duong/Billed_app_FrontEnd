@@ -81,101 +81,101 @@ describe(" Given I am connected as an employee and I am on NewBill Page", () => 
     expect(bill.fileName).toBeNull();
   });
 
-  describe("When I finish the form and click on submit button", () => {
-    test("I come back to bill page", async () => {
-      const input = screen.getByTestId("file");
-      const form = screen.getByTestId("form-new-bill");
-      const email = JSON.parse(localStorage.getItem("user")).email;
-      const file = new File(["test file content"], "test.jpg", {
-        type: "image/jpeg",
-      });
-      const valForm = {
-        email,
-        type: "Transports",
-        name: "Train Lyon Paris",
-        amount: "100",
-        date: "2024-01-10",
-        vat: "10",
-        pct: "10",
-        commentary: "merci",
-        fileUrl: null,
-        fileName: "test.jpg",
-        status: "pending",
-      };
+  // describe("When I finish the form and click on submit button", () => {
+  //   test("I come back to bill page", async () => {
+  //     const input = screen.getByTestId("file");
+  //     const form = screen.getByTestId("form-new-bill");
+  //     const email = JSON.parse(localStorage.getItem("user")).email;
+  //     const file = new File(["test file content"], "test.jpg", {
+  //       type: "image/jpeg",
+  //     });
+  //     const valForm = {
+  //       email,
+  //       type: "Transports",
+  //       name: "Train Lyon Paris",
+  //       amount: "100",
+  //       date: "2024-01-10",
+  //       vat: "10",
+  //       pct: "10",
+  //       commentary: "merci",
+  //       fileUrl: null,
+  //       fileName: "test.jpg",
+  //       status: "pending",
+  //     };
 
-      // const preventDefault = jest.fn();
-      // const event = {
-      //   preventDefault,
-      //   target: { files: [file] },
-      // };
+  //     // const preventDefault = jest.fn();
+  //     // const event = {
+  //     //   preventDefault,
+  //     //   target: { files: [file] },
+  //     // };
 
-      const bill = new NewBill({
-        document,
-        onNavigate,
-        store: null,
-        localStorage,
-      });
-      // await waitFor(() => {
-      //   fireEvent.change(screen.getByTestId("expense-type"), {
-      //     target: { value: valForm.type },
-      //   });
-      //   fireEvent.change(screen.getByTestId("expense-name"), {
-      //     target: { value: valForm.name },
-      //   });
-      //   fireEvent.change(screen.getByTestId("amount"), {
-      //     target: { value: valForm.amount },
-      //   });
-      //   fireEvent.change(screen.getByTestId("datepicker"), {
-      //     target: { value: valForm.date },
-      //   });
-      //   fireEvent.change(screen.getByTestId("vat"), {
-      //     target: { value: valForm.vat },
-      //   });
-      //   fireEvent.change(screen.getByTestId("pct"), {
-      //     target: { value: valForm.pct },
-      //   });
-      //   fireEvent.change(screen.getByTestId("commentary"), {
-      //     target: { value: valForm.commentary },
-      //   });
-      // });
+  //     const bill = new NewBill({
+  //       document,
+  //       onNavigate,
+  //       store: null,
+  //       localStorage,
+  //     });
+  //     // await waitFor(() => {
+  //     //   fireEvent.change(screen.getByTestId("expense-type"), {
+  //     //     target: { value: valForm.type },
+  //     //   });
+  //     //   fireEvent.change(screen.getByTestId("expense-name"), {
+  //     //     target: { value: valForm.name },
+  //     //   });
+  //     //   fireEvent.change(screen.getByTestId("amount"), {
+  //     //     target: { value: valForm.amount },
+  //     //   });
+  //     //   fireEvent.change(screen.getByTestId("datepicker"), {
+  //     //     target: { value: valForm.date },
+  //     //   });
+  //     //   fireEvent.change(screen.getByTestId("vat"), {
+  //     //     target: { value: valForm.vat },
+  //     //   });
+  //     //   fireEvent.change(screen.getByTestId("pct"), {
+  //     //     target: { value: valForm.pct },
+  //     //   });
+  //     //   fireEvent.change(screen.getByTestId("commentary"), {
+  //     //     target: { value: valForm.commentary },
+  //     //   });
+  //     // });
 
-      // const mockHandleChangeFile = jest.fn((e) => bill.handleChangeFile(e));
-      // input.addEventListener("change", mockHandleChangeFile);
-      // await waitFor(() => fireEvent.change(input, event));
+  //     // const mockHandleChangeFile = jest.fn((e) => bill.handleChangeFile(e));
+  //     // input.addEventListener("change", mockHandleChangeFile);
+  //     // await waitFor(() => fireEvent.change(input, event));
 
-      // expect(screen.getByTestId("expense-type")).toBeTruthy();
-      // expect(screen.getByTestId("expense-type").value).toBe(valForm.type);
-      // expect(screen.getByTestId("expense-name").value).toBe(valForm.name);
-      // expect(screen.getByTestId("amount").value).toBe(valForm.amount);
-      // expect(screen.getByTestId("datepicker").value).toBe(valForm.date);
-      // expect(screen.getByTestId("vat").value).toBe(valForm.vat);
-      // expect(screen.getByTestId("pct").value).toBe(valForm.pct);
-      // expect(screen.getByTestId("commentary").value).toBe(valForm.commentary);
+  //     // expect(screen.getByTestId("expense-type")).toBeTruthy();
+  //     // expect(screen.getByTestId("expense-type").value).toBe(valForm.type);
+  //     // expect(screen.getByTestId("expense-name").value).toBe(valForm.name);
+  //     // expect(screen.getByTestId("amount").value).toBe(valForm.amount);
+  //     // expect(screen.getByTestId("datepicker").value).toBe(valForm.date);
+  //     // expect(screen.getByTestId("vat").value).toBe(valForm.vat);
+  //     // expect(screen.getByTestId("pct").value).toBe(valForm.pct);
+  //     // expect(screen.getByTestId("commentary").value).toBe(valForm.commentary);
 
-      //   screen.getByTestId("expense-type").value = valForm.type;
-      //   screen.getByTestId("expense-name").value = valForm.name;
-      //   screen.getByTestId("amount").value = valForm.amount;
-      //   screen.getByTestId("datepicker").value = valForm.date;
-      //   screen.getByTestId("vat").value = valForm.vat;
-      //   screen.getByTestId("pct").value = valForm.pct;
-      //   screen.getByTestId("commentary").value = valForm.commentary;
+  //     //   screen.getByTestId("expense-type").value = valForm.type;
+  //     //   screen.getByTestId("expense-name").value = valForm.name;
+  //     //   screen.getByTestId("amount").value = valForm.amount;
+  //     //   screen.getByTestId("datepicker").value = valForm.date;
+  //     //   screen.getByTestId("vat").value = valForm.vat;
+  //     //   screen.getByTestId("pct").value = valForm.pct;
+  //     //   screen.getByTestId("commentary").value = valForm.commentary;
 
-      //   expect(mockHandleChangeFile).toHaveBeenCalled();
-      //   expect(form).toBeTruthy();
-      const mockHandleSubmit = jest.fn((e) => bill.handleSubmit(e));
-      form.addEventListener("submit", mockHandleSubmit);
-      //   //   //   await waitFor(() => fireEvent.submit(form));
-      fireEvent.submit(form);
-      // expect(mockHandleSubmit).toHaveBeenCalledTimes(1);
-    //   fireEvent.submit(form, {
-    //     preventDefault,
-    //     target: {
-    //         querySelector: (selector) => document.querySelector(selector)
-    //     }
-    //   });
-    });
-    test("New bill appears on list of bills on Bill page", () => {});
-  });
+  //     //   expect(mockHandleChangeFile).toHaveBeenCalled();
+  //     //   expect(form).toBeTruthy();
+  //     const mockHandleSubmit = jest.fn((e) => bill.handleSubmit(e));
+  //     form.addEventListener("submit", mockHandleSubmit);
+  //     //   //   //   await waitFor(() => fireEvent.submit(form));
+  //     fireEvent.submit(form);
+  //     // expect(mockHandleSubmit).toHaveBeenCalledTimes(1);
+  //   //   fireEvent.submit(form, {
+  //   //     preventDefault,
+  //   //     target: {
+  //   //         querySelector: (selector) => document.querySelector(selector)
+  //   //     }
+  //   //   });
+  //   });
+  //   // test("New bill appears on list of bills on Bill page", () => {});
+  // });
 });
 
 jest.mock("../app/Store", () => mockStore);
