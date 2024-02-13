@@ -21,8 +21,6 @@ export default class NewBill {
     e.preventDefault();
     const input = this.document.querySelector(`input[data-testid="file"]`);
     const file = e.target.files[0];
-    // const filePath = e.target.value.split(/\\/g);
-    // const fileName = filePath[filePath.length - 1];
     const fileName = file.name;
     const regexImg = /^.+(\.jpeg|\.jpg|\.png)$/;
     if (regexImg.test(fileName)) {
@@ -46,7 +44,6 @@ export default class NewBill {
         .catch((error) => console.error(error));
     }else{
       input.value = "";
-      return false;
     };
   };
 

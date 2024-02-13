@@ -51,6 +51,7 @@ export default class {
               date: doc.date,
               status: formatStatus(doc.status),
             }));
+          // console.log(bills);
           return bills;
         })
         .catch((error) => {
