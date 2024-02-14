@@ -69,7 +69,6 @@ describe("Given I am connected as an employee", () => {
         };
 
         window.onNavigate(ROUTES_PATH.Bills);
-        document.body.innerHTML = BillsUI({ data: bills });
         const btnNewBill = screen.getByTestId("btn-new-bill");
         const bill = new Bills({ document, onNavigate, store: null, localStorage });
 
@@ -99,6 +98,7 @@ describe("Given I am connected as an employee", () => {
         root.setAttribute("id", "root");
         document.body.append(root);
         router();
+        
         window.onNavigate(ROUTES_PATH.Bills);
         document.body.innerHTML = BillsUI({ data: bills });
         const bill = new Bills({ document, onNavigate, store: null, localStorage });
@@ -111,9 +111,10 @@ describe("Given I am connected as an employee", () => {
 
         expect(spyClickIconEye).toBeCalledTimes(1);
         expect($.fn.modal).toBeCalledWith("show");
+        
       });
 
-      test("the modal should be linked to the bill url", async () => {
+      test("the modal should have src attribute of the bill url", async () => {
         const iconEye = screen.getAllByTestId("icon-eye")[0];
         await waitFor(() => screen.getByAltText("Bill"));
         const img = screen.getByAltText("Bill");
@@ -168,7 +169,7 @@ describe("Given I am a user connected as Employee", () => {
       });
       window.onNavigate(ROUTES_PATH.Bills);
       await new Promise(process.nextTick);
-      const message =  await screen.getByText(/Erreur 404/);
+      const message =  screen.getByText(/Erreur 404/);
       expect(message).toBeTruthy();
     });
 
@@ -182,7 +183,7 @@ describe("Given I am a user connected as Employee", () => {
 
       window.onNavigate(ROUTES_PATH.Bills)
       await new Promise(process.nextTick);
-      const message = await screen.getByText(/Erreur 500/)
+      const message = screen.getByText(/Erreur 500/)
       expect(message).toBeTruthy()
     })
   });
